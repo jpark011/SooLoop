@@ -12,17 +12,58 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:text="Start"
-            android:layout_marginBottom="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintTop_toTopOf="parent"
+            android:onClick="playSound"
+    />
+
+    <SeekBar
+            android:id="@+id/playbackSpeed"
+            android:layout_width="391dp"
+            android:layout_height="28dp"
+            android:min="5"
+            android:max="20"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/startButton" app:layout_constraintVertical_bias="0.514"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+    ></SeekBar>
+
     <TextView
+            android:text="Lead Guitar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hello World!"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintEnd_toStartOf="@+id/guitarToggle" android:layout_marginBottom="48dp"
+            app:layout_constraintBottom_toBottomOf="@+id/startButton" android:id="@+id/textView"/>
+    <ToggleButton
+            android:id="@+id/guitarToggle"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            app:layout_constraintBottom_toTopOf="@+id/startButton" app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+            android:text="Piano"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@+id/pianoToggle"
+            app:layout_constraintBottom_toTopOf="@+id/guitarToggle"/>
+    <ToggleButton
+            android:id="@+id/pianoToggle"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            app:layout_constraintBottom_toTopOf="@+id/guitarToggle" app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+            android:text="Drum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@+id/drumToggle"
+            app:layout_constraintBottom_toBottomOf="@+id/drumToggle"/>
+    <ToggleButton
+            android:id="@+id/drumToggle"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            app:layout_constraintBottom_toTopOf="@+id/pianoToggle" app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
