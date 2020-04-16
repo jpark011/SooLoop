@@ -1,28 +1,13 @@
 package com.example.sooloop
 
-import android.media.AudioAttributes
-import android.media.AudioManager
-import android.media.SoundPool
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Button
 import android.widget.SeekBar
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    private val soundPool = SoundPool.Builder()
-        .setMaxStreams(8)
-        .build()
-    private var i: Int = 0
-    private var iB: Boolean = false
-    private var j: Int = 0
-    private var jB: Boolean = false
-    private var k: Int = 0
-    private var kB: Boolean = false
-    private var player: Int = 0
-    private var playbackRate: Float = 1f
+    private val playbackService = PlaybackService()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +16,7 @@ class MainActivity : AppCompatActivity() {
 
         playbackSpeed.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                playbackRate = progress / 10f
+                playbackService.setRate(progress / 10f)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
@@ -42,26 +27,26 @@ class MainActivity : AppCompatActivity() {
         })
 
         pianoToggle.setOnCheckedChangeListener { _, isChecked ->
-            kB = isChecked
+            toggleBeat(isChecked, Beat.PIANO_LEAD_01)
         }
 
         guitarToggle.setOnCheckedChangeListener { _, isChecked ->
-            iB = isChecked
+            toggleBeat(isChecked, Beat.GUITAR_LEAD_01)
         }
 
         drumToggle.setOnCheckedChangeListener { _, isChecked ->
-            jB = isChecked
+            toggleBeat(isChecked, Beat.DRUM_01)
         }
+    }
 
-
-        i = soundPool.load(this, R.raw.guitar_lead, 1)
-        j = soundPool.load(this, R.raw.drum , 1)
-        k = soundPool.load(this, R.raw.piano_lead , 1)
+    fun toggleBeat(isChecked: Boolean, beat: Beat) {
+        if (isChecked)
+            playbackService.load(this, beat)
+        else
+            playbackService.unload(beat)
     }
 
     fun playSound(view: View) {
-        if (iB) soundPool.play(i, 1F, 1F, 0, 0, playbackRate)
-        if (jB) soundPool.play(j, 1F, 1F, 0, 0, playbackRate)
-        if (kB) soundPool.play(k, 1F, 1F, 0, 0, playbackRate)
+        playbackService.play()
     }
 }

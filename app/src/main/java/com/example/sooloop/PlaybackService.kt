@@ -11,9 +11,10 @@ class PlaybackService : PlaybackInterface {
     private val PLAY_VOLUME_LEFT = 1F
     private val PLAY_VOLUME_RIGHT = 1F
     private val PLAY_PRIORITY = 0
+    private val MAX_STREAMS = 4
 
     private val soundPool = SoundPool.Builder()
-        .setMaxStreams(8)
+        .setMaxStreams(MAX_STREAMS)
         .build()
     private val beatMap = HashMap<Beat, Int>()
 
