@@ -36,6 +36,7 @@ class PlaybackService : PlaybackInterface {
         val soundId = beatMap[beat]
         if (soundId != null) {
             soundPool.unload(soundId)
+            beatMap.remove(beat)
         }
     }
 
